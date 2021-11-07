@@ -56,11 +56,10 @@ private val SCAN_DURATION_MILLIS = TimeUnit.SECONDS.toMillis(15)
     EpcService.LocalBinder::class
 )
 class EpcService : LifecycleService() {
-    private val job = SupervisorJob()
-    private val scope = CoroutineScope(Dispatchers.IO + job)
-    private val scanScope = scope.childScope()
-
-    private val connectScope = scope.childScope()
+    private val _job = SupervisorJob()
+    private val _scope = CoroutineScope(Dispatchers.IO + _job)
+    private val _scanScope = _scope.childScope()
+    private val _connectScope = _scope.childScope()
 
     private val _scanner = Scanner()
 
@@ -83,12 +82,12 @@ class EpcService : LifecycleService() {
             _scanStatus.value == ScanStatus.Running -> return
             !_isBluetoothEnabled -> _scanStatus.value =
                 ScanStatus.Failed(ScanFailure.BluetoothNotEnabled)
-            !hasLocationPermission -> _scanStatus.value =
+            !hasLocationAndConnectPermissions -> _scanStatus.value =
                 ScanStatus.Failed(ScanFailure.PermissionsMissing)
             else -> {
                 _scanStatus.value = ScanStatus.Running
 
-                scanScope.launch {
+                _scanScope.launch {
                     withTimeoutOrNull(SCAN_DURATION_MILLIS) {
                         _scanner
                             .advertisements
@@ -119,7 +118,7 @@ class EpcService : LifecycleService() {
     }
 
     fun stopScan() {
-        scanScope.cancelChildren()
+        _scanScope.cancelChildren()
     }
 
     private val _activeDevice = MutableStateFlow<ProvisionableDevice?>(null)
@@ -127,10 +126,11 @@ class EpcService : LifecycleService() {
 
     private val _connectState = MutableStateFlow<ConnectState>(ConnectState.Idle)
     val connectState = _connectState.asStateFlow()
-//
-//    val connectedDeviceState: Flow<DeviceState?> = _activeDevice.flatMapLatest {
-//        it?.deviceState ?: flowOf(null)
-//    }.stateIn(scope = lifecycleScope, initialValue = null, started = SharingStarted.WhileSubscribed(5000))
+
+    // You can do something like the following to "forward" a flow from the active device, if any
+    //  val connectedDeviceState: Flow<DeviceState?> = _activeDevice.flatMapLatest {
+    //      it?.deviceState ?: flowOf(null)
+    //  }.stateIn(scope = lifecycleScope, initialValue = null, started = SharingStarted.WhileSubscribed(5000))
 
     fun disconnect() {
         //connectScope.cancelChildren()
@@ -149,8 +149,8 @@ class EpcService : LifecycleService() {
 
         _connectState.value = ConnectState.PeripheralConnecting
 
-        connectScope.launch {
-            val per = connectScope.peripheral(advertisement)
+        _connectScope.launch {
+            val per = _connectScope.peripheral(advertisement)
 
             val bridge = ProvisionableDevice(per)
             _activeDevice.value = bridge
@@ -160,7 +160,7 @@ class EpcService : LifecycleService() {
         }
     }
 
-    private val binder = LocalBinder()
+    private val _binder = LocalBinder()
 
     inner class LocalBinder : Binder() {
         // Return this instance of LocalService so clients can call public methods
@@ -169,12 +169,12 @@ class EpcService : LifecycleService() {
 
     override fun onBind(intent: Intent): IBinder {
         super.onBind(intent)
-        return binder
+        return _binder
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        job.cancel()
+        _job.cancel()
     }
 
 }

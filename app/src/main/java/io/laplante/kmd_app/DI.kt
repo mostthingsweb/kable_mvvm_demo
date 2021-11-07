@@ -10,15 +10,17 @@ import io.laplante.kmd.BluetoothLeServiceWrapper
 import javax.inject.Singleton
 
 
-// TODO now that kable supports service UUID filtering this provider does nothing useful; remove it
-//  and simplify the annotation processor
+// TODO: Note that this provider isn't really necessary. It is an artifact of a previous version
+//  of the code where I had to manually provide an additional parameter to the constructor of the
+//  service wrapper. I am leaving it in place partially out of laziness, but also because it may be
+//  instructive.
 
 @Module
 @InstallIn(SingletonComponent::class)
 object EpcServiceProviderModule {
     @Provides
     @Singleton
-    fun provideEpcServiceWrapper2(
+    fun provideEpcServiceWrapper(
         @ApplicationContext applicationContext: Context,
     ): BluetoothLeServiceWrapper {
         return BluetoothLeServiceWrapper(

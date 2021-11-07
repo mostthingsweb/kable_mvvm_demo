@@ -38,7 +38,7 @@ object RequestCode {
     const val LocationPermission = 55002
 }
 
-val Context.hasLocationPermission: Boolean
+val Context.hasLocationAndConnectPermissions: Boolean
     @RequiresApi(Build.VERSION_CODES.S)
     get() = (Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
             hasPermission(Manifest.permission.ACCESS_COARSE_LOCATION) ||
@@ -55,7 +55,7 @@ fun Context.hasPermission(
  * The result of the dialog will come back via [Activity.onRequestPermissionsResult] method.
  */
 @RequiresApi(Build.VERSION_CODES.S)
-fun Activity.requestLocationPermission() {
+fun Activity.requestLocationAndConnectPermissions() {
     /*   .-----------------------------.
      *   |   _                         |
      *   |  /o\  Allow App to access   |

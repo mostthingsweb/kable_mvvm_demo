@@ -12,6 +12,8 @@ import kotlin.reflect.KClass
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.withNullability
 
+// This class uses reflection in a proof-of-concept manner so that the ListAdapter can live in this
+// library module and be re-used in applications. I hate having to write a new ListAdapter every time.
 class ProgressItemAdapter<B : ViewDataBinding> @Inject constructor(
     private val klass: KClass<B>,
 ) :

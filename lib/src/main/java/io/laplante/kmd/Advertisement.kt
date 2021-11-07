@@ -10,8 +10,5 @@ data class Advertisement constructor(internal val adv: Advertisement) {
     val address = adv.address
 
     val nameOrAddress: String
-        get() = when (name.isNullOrBlank()) {
-            true -> address
-            false -> name
-        }
+        get() = if (name.isNullOrBlank()) address else name
 }

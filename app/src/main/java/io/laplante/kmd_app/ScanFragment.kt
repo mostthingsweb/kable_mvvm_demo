@@ -48,7 +48,7 @@ class ScanFragment : Fragment() {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 launch { vm.advertisements.collect { adapter.submitList(it) } }
                 launch {
-                    vm.scanStartTransitions.collect {
+                    vm.onConnectEventFlow.collect {
                         this@ScanFragment.findNavController()
                             .navigate(ScanFragmentDirections.actionScanFragmentToSecondFragment())
                     }

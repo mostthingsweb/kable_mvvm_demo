@@ -14,23 +14,20 @@ import javax.inject.Inject
 class BleViewModel @Inject constructor(
     private val bluetoothLeServiceWrapper: BluetoothLeServiceWrapper, application: Application
 ) : AndroidViewModel(application), LifecycleObserver {
-    init {
-        Log.i("APP", "VIEW MODEL CREATED SUCKA")
-    }
-
     val advertisements = bluetoothLeServiceWrapper.advertisements
 
     val scanStatus = bluetoothLeServiceWrapper.scanStatus
 
-    private val _scanStartTransitions = MutableSharedFlow<Unit>()
-    val scanStartTransitions = _scanStartTransitions.asSharedFlow()
+    private val _onConnectEventFlow = MutableSharedFlow<Unit>()
+    // When a Unit is delivered on this flow, it indicates that connect() was called
+    val onConnectEventFlow = _onConnectEventFlow.asSharedFlow()
 
     val isScanRunning: StateFlow<Boolean>
         get() = scanStatus.map { it is ScanStatus.Running }
             .stateIn(scope = viewModelScope, SharingStarted.Eagerly, false)
 
+    // In a real application, use `combine` to populate `progressItems` with more than one item.
     val progressItems: StateFlow<List<ProgressItem>> =
-
         bluetoothLeServiceWrapper.connectState.map { s1 ->
             listOf(
                 ProgressItem(0, s1.toString()),
@@ -61,7 +58,7 @@ class BleViewModel @Inject constructor(
 
     fun connect(advertisement: Advertisement) {
         viewModelScope.launch {
-            _scanStartTransitions.emit(Unit)
+            _onConnectEventFlow.emit(Unit)
         }
         bluetoothLeServiceWrapper.connect(advertisement)
     }

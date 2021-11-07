@@ -104,7 +104,7 @@ class MainActivity @Inject constructor() : AppCompatActivity() {
                     if (it is ScanStatus.Failed) {
                         when (it.failure) {
                             is ScanFailure.BluetoothNotEnabled -> enableBluetooth()
-                            is ScanFailure.PermissionsMissing -> requestLocationPermission()
+                            is ScanFailure.PermissionsMissing -> requestLocationAndConnectPermissions()
                             else -> {
                             }
                         }
