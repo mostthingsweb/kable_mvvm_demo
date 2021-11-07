@@ -10,8 +10,10 @@ You can find a decent number of open-source projects on GitHub and elsewhere tha
 
 - Lack of any structure whatsoever (e.g. all the logic in the Activity). Common in examples from chip vendors.  
 - Callback hell (instead of using something like coroutines)
-- "Only" implementing scanning - it is relatively straightforward to structure an app that just scans for BLE peripherals. There are many examples on GitHub. What is much harder (and so far from my searches, )
+- "Only" implementing scanning - it is relatively straightforward to structure an app that just scans for BLE peripherals. There are many examples on GitHub. Much harder (and from my searching, all but non-existent on GitHub) are apps that connect to those peripherals and actually do something<sup>1</sup>. 
+- BLE functionality in the ViewModel which [goes against best practices](https://medium.com/androiddevelopers/viewmodels-and-livedata-patterns-antipatterns-21efaef74a54) 
 
+<sup>1</sup> Bonus points for an app that demonstrates maintaining a connection to a peripheral across multiple fragments.
 
 ## Big Todos
 
