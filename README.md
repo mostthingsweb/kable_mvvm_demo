@@ -1,11 +1,11 @@
 # kable_mvvm_demo
 
-The goal of this project is to (eventually) demonstrate clean usage of Kable in a MVVM app. *There are problems with it* so I am open sourcing it "early" in the hopes others might contribute fixes and enhancements. 
+The goal of this project is to demonstrate a real-world app structure for a non-trivial Bluetooth LE app. clean usage of Kable in a MVVM app. *There are problems with it* so I am open sourcing it "early" in the hopes others might contribute fixes and enhancements. 
 
 ## Motivations
 
 There are several open-source projects that attempt to demonstrate how to structure BLE apps. So far I've found that they all have one or more problems:
-- 
+
 
 ## Big Todos
 
