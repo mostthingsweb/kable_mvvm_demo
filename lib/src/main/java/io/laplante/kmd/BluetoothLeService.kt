@@ -53,9 +53,9 @@ private val SCAN_DURATION_MILLIS = TimeUnit.SECONDS.toMillis(15)
 
 // TODO: locking?
 @GenerateBoundServiceWrapper(
-    EpcService.LocalBinder::class
+    BluetoothLeService.LocalBinder::class
 )
-class EpcService : LifecycleService() {
+class BluetoothLeService : LifecycleService() {
     private val _job = SupervisorJob()
     private val _scope = CoroutineScope(Dispatchers.IO + _job)
     private val _scanScope = _scope.childScope()
@@ -164,7 +164,7 @@ class EpcService : LifecycleService() {
 
     inner class LocalBinder : Binder() {
         // Return this instance of LocalService so clients can call public methods
-        fun getService(): EpcService = this@EpcService
+        fun getService(): BluetoothLeService = this@BluetoothLeService
     }
 
     override fun onBind(intent: Intent): IBinder {

@@ -9,7 +9,7 @@
 
     <application>
         <service
-            android:name="io.laplante.kmd.EpcService"
+            android:name="io.laplante.kmd.BluetoothLeService"
             android:enabled="true"
             android:exported="false" />
     </application>
