@@ -23,7 +23,7 @@ Currently the app implements scanning and displaying the results. If you click o
 
 ## Big to-dos and issues
 
-- ~~Something is wrong the view model lifecycle. If you rotate the screen while scanning, the screen will be cleared and the scan will no longer be running.~~ Fixed by https://github.com/mostthingsweb/kable_mvvm_demo/commit/9e277ae141436852d3607c294c14728ad676038c
+- ~~Something is wrong the view model lifecycle. If you rotate the screen while scanning, the screen will be cleared and the scan will no longer be running.~~ Fixed by [this commit](https://github.com/mostthingsweb/kable_mvvm_demo/commit/9e277ae141436852d3607c294c14728ad676038c)
 - I'm not entirely sure if the service binding strategy I have chosen is sound/optimal.
 
 ## Basic design
@@ -32,7 +32,7 @@ Scanning takes place in `BluetoothLeService` which is a relatively straightforwa
 
 Connecting the service to the view model (`BleViewModel`) is a little tricky. I wanted to avoid having to make `BluetoothLeService` a singleton. Instead, I wrote a small annotation processor (the `processor` module) which takes the service class and generates a wrapper class like below. 
 
-The wrapper acts as a proxy around the service and forwards state from the service (when it is bound). The view model can observe the wrapper's flows, regardless of whether the underlying service is bound or not. This makes the lifecycles easier (though as acknowledged, it may also be what is causing screen rotation issues).
+The wrapper acts as a proxy around the service and forwards state from the service (when it is bound). The view model can observe the wrapper's flows, regardless of whether the underlying service is bound or not. This makes the lifecycles easier.
 
 ```kotlin
 @Singleton
