@@ -2,7 +2,7 @@
 
 The intention of this project is to demonstrate a non-trivial Bluetooth LE app using [Kable](https://github.com/JuulLabs/kable) and [app architecture best practices](https://developer.android.com/jetpack/guide).
 
-*There are problems with it* so I am open sourcing it "early" in the hopes others might contribute fixes and enhancements. I *do not* claim to be even a decent Android developer. This is really my first actual Android project, so expect problems other than what I've identified below :slightly_smiling_face:
+:warning: **There are problems with it** so I am open sourcing it "early" in the hopes others might contribute fixes and enhancements. I *do not* claim to be even a decent Android developer. This is really my first actual Android project, so expect problems other than what I've identified below :slightly_smiling_face:
 
 ## Motivations
 
