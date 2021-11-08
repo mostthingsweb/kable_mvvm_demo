@@ -23,8 +23,8 @@ Currently the app implements scanning and displaying the results. If you click o
 
 ## Big to-dos and issues
 
-- Something is wrong the view model lifecycle. If you rotate the screen while scanning, the screen will be cleared and the scan will no longer be running.
-- I'm not entirely sure if the service binding strategy I have chosen is sound/optimal. It very well may be that it's what is causing the screen rotation issue.
+- ~~Something is wrong the view model lifecycle. If you rotate the screen while scanning, the screen will be cleared and the scan will no longer be running.~~ Fixed by https://github.com/mostthingsweb/kable_mvvm_demo/commit/9e277ae141436852d3607c294c14728ad676038c
+- I'm not entirely sure if the service binding strategy I have chosen is sound/optimal.
 
 ## Basic design
 
