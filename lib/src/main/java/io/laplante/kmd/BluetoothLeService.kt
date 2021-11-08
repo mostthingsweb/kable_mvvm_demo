@@ -63,13 +63,13 @@ class BluetoothLeService : LifecycleService() {
 
     private val _scanner = Scanner()
 
-    private val _foundDevices = hashMapOf<String, io.laplante.kmd.Advertisement>()
+    private val _foundDevices = hashMapOf<String, io.laplante.kmd.AdvertisementWrapper>()
 
     private val _scanStatus = MutableStateFlow<ScanStatus>(ScanStatus.Idle)
     val scanStatus = _scanStatus.asStateFlow()
 
     private val _advertisements =
-        MutableStateFlow<List<io.laplante.kmd.Advertisement>>(emptyList())
+        MutableStateFlow<List<io.laplante.kmd.AdvertisementWrapper>>(emptyList())
     val advertisements = _advertisements.asStateFlow()
 
     private val _isBluetoothEnabled: Boolean
@@ -103,7 +103,7 @@ class BluetoothLeService : LifecycleService() {
                                 // TODO keep track of time each device was last seen, then
                                 //  occasionally prune ones we haven't seen in a while.
                                 _foundDevices[advertisement.address] =
-                                    Advertisement(advertisement)
+                                    AdvertisementWrapper(advertisement)
                                 _advertisements.value = _foundDevices.values.toList()
                                 Log.i("APP", advertisement.toString())
                             }

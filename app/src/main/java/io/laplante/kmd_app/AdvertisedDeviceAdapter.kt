@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.laplante.kmd.BleViewModel
-import io.laplante.kmd.Advertisement
+import io.laplante.kmd.AdvertisementWrapper
 import io.laplante.kmd_app.databinding.RecyclerviewScanItemBinding
 import java.lang.Long.parseLong
 import javax.inject.Inject
 
 // TODO: use interface instead of the actual view model class
 class AdvertisedDeviceAdapter @Inject constructor(private val viewModel: BleViewModel) :
-    ListAdapter<Advertisement, AdvertisedDeviceAdapter.BridgeViewHolder>(
+    ListAdapter<AdvertisementWrapper, AdvertisedDeviceAdapter.BridgeViewHolder>(
         StringComparator()
     ) {
 
@@ -41,7 +41,7 @@ class AdvertisedDeviceAdapter @Inject constructor(private val viewModel: BleView
         private val binding: RecyclerviewScanItemBinding,
         private val viewModel: BleViewModel
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(ble_peripheral: Advertisement) {
+        fun bind(ble_peripheral: AdvertisementWrapper) {
             binding.obj = ble_peripheral
             binding.viewModel = viewModel
             binding.executePendingBindings();
@@ -57,17 +57,17 @@ class AdvertisedDeviceAdapter @Inject constructor(private val viewModel: BleView
         }
     }
 
-    class StringComparator : DiffUtil.ItemCallback<Advertisement>() {
+    class StringComparator : DiffUtil.ItemCallback<AdvertisementWrapper>() {
         override fun areItemsTheSame(
-            oldItem: Advertisement,
-            newItem: Advertisement
+            oldItem: AdvertisementWrapper,
+            newItem: AdvertisementWrapper
         ): Boolean {
             return oldItem === newItem
         }
 
         override fun areContentsTheSame(
-            oldItem: Advertisement,
-            newItem: Advertisement
+            oldItem: AdvertisementWrapper,
+            newItem: AdvertisementWrapper
         ): Boolean {
             return oldItem == newItem
         }

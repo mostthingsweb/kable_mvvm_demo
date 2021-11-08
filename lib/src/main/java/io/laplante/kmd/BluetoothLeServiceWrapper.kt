@@ -20,8 +20,8 @@ class BluetoothLeServiceWrapper(applicationContext: Context) :
         _service.stopScan()
     }
 
-    fun connect(advertisement: Advertisement) {
-        _service.connect(advertisement.adv)
+    fun connect(advertisementWrapper: AdvertisementWrapper) {
+        _service.connect(advertisementWrapper.adv)
     }
 
     fun disconnect() {

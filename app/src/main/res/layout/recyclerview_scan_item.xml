@@ -4,11 +4,11 @@
 
     <data>
 
-        <import type="io.laplante.kmd.Advertisement" />
+        <import type="io.laplante.kmd.AdvertisementWrapper" />
 
         <variable
             name="obj"
-            type="Advertisement" />
+            type="AdvertisementWrapper" />
 
         <variable
             name="viewModel"

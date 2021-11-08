@@ -1,7 +1,6 @@
 package io.laplante.kmd
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.viewModelScope
@@ -56,10 +55,10 @@ class BleViewModel @Inject constructor(
         bluetoothLeServiceWrapper.disconnect()
     }
 
-    fun connect(advertisement: Advertisement) {
+    fun connect(advertisementWrapper: AdvertisementWrapper) {
         viewModelScope.launch {
             _onConnectEventFlow.emit(Unit)
         }
-        bluetoothLeServiceWrapper.connect(advertisement)
+        bluetoothLeServiceWrapper.connect(advertisementWrapper)
     }
 }
