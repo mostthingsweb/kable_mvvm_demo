@@ -26,5 +26,79 @@ Currently the app implements scanning and displaying the results. If you click o
 
 ## Basic design
 
-Most of the scanning logic and setup takes place in `BluetoothLeService` which is a relatively straightforward [LifecycleService](https://developer.android.com/reference/androidx/lifecycle/LifecycleService). Detected devices are exposed by the service as a [StateFlow](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow). The service also exposes a `scanStatus` `StateFlow`. 
+Scanning takes place in `BluetoothLeService` which is a relatively straightforward [LifecycleService](https://developer.android.com/reference/androidx/lifecycle/LifecycleService). Detected devices are exposed by the service as a [StateFlow](https://developer.android.com/kotlin/flow/stateflow-and-sharedflow). The service also exposes a `scanStatus` `StateFlow`.
+
+Connecting the service to the view model (`BleViewModel`) is a little tricky. I wanted to avoid having to make `BluetoothLeService` a singleton. Instead, I wrote a small annotation processor (the `processor` module) which collects all the public takes the service class and generates a wrapper class that roughly looks like this:
+
+```kotlin
+@Singleton
+public open class BluetoothLeServiceWrapperBase(
+    private val applicationContext: Context
+) : LifecycleObserver {
+    private val _activeDevice: MutableStateFlow<ProvisionableDevice?> = MutableStateFlow(null)
+
+    public val activeDevice: StateFlow<ProvisionableDevice?> = _activeDevice.asStateFlow()
+
+    private val _advertisements: MutableStateFlow<List<Advertisement>> =
+        MutableStateFlow(emptyList())
+
+    public val advertisements: StateFlow<List<Advertisement>> = _advertisements.asStateFlow()
+
+    private val _connectState: MutableStateFlow<ConnectState?> = MutableStateFlow(null)
+
+    public val connectState: StateFlow<ConnectState?> = _connectState.asStateFlow()
+
+    private val _scanStatus: MutableStateFlow<ScanStatus?> = MutableStateFlow(null)
+
+    public val scanStatus: StateFlow<ScanStatus?> = _scanStatus.asStateFlow()
+
+    protected lateinit var _service: BluetoothLeService
+
+    private var _bound: Boolean = false
+
+    public val _connection: ServiceConnection = object : ServiceConnection {
+        public override fun onServiceConnected(className: ComponentName, service: IBinder): Unit {
+            val binder = service as BluetoothLeService.LocalBinder
+            _service = binder.getService()
+            _bound = true
+            this@BluetoothLeServiceWrapperBase.onServiceConnected(_service)
+            _service.lifecycleScope.launch {
+                launch {
+                    _activeDevice.emitAll(_service.activeDevice)
+                }
+                launch {
+                    _advertisements.emitAll(_service.advertisements)
+                }
+                launch {
+                    _connectState.emitAll(_service.connectState)
+                }
+                launch {
+                    _scanStatus.emitAll(_service.scanStatus)
+                }
+            }
+        }
+
+        public override fun onServiceDisconnected(className: ComponentName): Unit {
+            _bound = false
+        }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    public fun handleLifecycleStart(): Unit {
+        Intent(applicationContext, BluetoothLeService::class.java).also { intent ->
+            applicationContext.bindService(intent, _connection, Context.BIND_AUTO_CREATE)
+        }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    public fun handleLifecycleStop(): Unit {
+        applicationContext.unbindService(_connection)
+        _bound = false
+    }
+
+    public open fun onServiceConnected(service: BluetoothLeService): Unit {
+    }
+}
+```
+
 

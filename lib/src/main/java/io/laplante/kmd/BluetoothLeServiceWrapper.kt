@@ -1,7 +1,7 @@
 package io.laplante.kmd
 
 import android.content.Context
-import io.laplante.kmd.generated.EpcServiceWrapperBase
+import io.laplante.kmd.generated.BluetoothLeServiceWrapperBase
 import javax.inject.Singleton
 
 // TODO: the annotation processor could be changed to just generate BluetoothLeServiceWrapper
@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 @Singleton
 class BluetoothLeServiceWrapper(applicationContext: Context) :
-    EpcServiceWrapperBase(applicationContext) {
+    BluetoothLeServiceWrapperBase(applicationContext) {
 
     fun startScan() {
         _service.startScan()
