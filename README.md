@@ -57,7 +57,6 @@ public open class BluetoothLeServiceWrapperBase(
             _service = binder.getService()
             _bound = true
             this@BluetoothLeServiceWrapperBase.onServiceConnected(_service)
-            // TODO: do I need flowWithLifecycle or something here?
             _service.lifecycleScope.launch {
                 launch {
                     _advertisements.emitAll(_service.advertisements)
@@ -76,18 +75,13 @@ public open class BluetoothLeServiceWrapperBase(
         }
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
     public fun handleLifecycleStart() {
         Intent(applicationContext, BluetoothLeService::class.java).also { intent ->
             applicationContext.bindService(intent, _connection, Context.BIND_AUTO_CREATE)
         }
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    public fun handleLifecycleStop() {
-        applicationContext.unbindService(_connection)
-        _bound = false
-    }
 
     public open fun onServiceConnected(service: BluetoothLeService) { }
 }
