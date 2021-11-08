@@ -10,10 +10,12 @@ You can find a decent number of open-source projects on GitHub and elsewhere tha
 
 - Lack of any structure whatsoever (e.g. all the logic in the Activity). Common in examples from chip vendors.  
 - Callback hell (instead of using something like coroutines)
-- "Only" implementing scanning - it is relatively straightforward to structure an app that just scans for BLE peripherals. There are many examples on GitHub. Much harder (and from my searching, all but non-existent on GitHub) are apps that connect to those peripherals and actually do something<sup>1</sup>. 
+- "Only" implementing scanning - it is relatively straightforward to structure an app that just scans for BLE peripherals. There are many examples on GitHub. Much harder (and from my searching, all but non-existent on GitHub) are apps that connect to those peripherals and actually do something<sup>1, 2</sup>. 
 - BLE functionality in the ViewModel which [goes against best practices](https://medium.com/androiddevelopers/viewmodels-and-livedata-patterns-antipatterns-21efaef74a54) 
 
 <sup>1</sup> Bonus points if you can find an example of an app that demonstrates maintaining a connection to a peripheral across multiple fragments. I haven't found any.
+
+<sup>2</sup> Yes, I realize this app currently doesn't do much more than scanning. I want to fix the fundamental issues listed below before I put effort into other areas.  
 
 ## Current status
 
@@ -30,7 +32,7 @@ Scanning takes place in `BluetoothLeService` which is a relatively straightforwa
 
 Connecting the service to the view model (`BleViewModel`) is a little tricky. I wanted to avoid having to make `BluetoothLeService` a singleton. Instead, I wrote a small annotation processor (the `processor` module) which takes the service class and generates a wrapper class like below. 
 
-The wrapper acts as a proxy around the service and forwards state from the service (when it is bound). The view model can observe the wrapper's flows, regardless of whether the underlying service is bound or not. This makes the lifecycles easier.
+The wrapper acts as a proxy around the service and forwards state from the service (when it is bound). The view model can observe the wrapper's flows, regardless of whether the underlying service is bound or not. This makes the lifecycles easier (though as acknowledged, it may also be what is causing screen rotation issues).
 
 ```kotlin
 @Singleton
