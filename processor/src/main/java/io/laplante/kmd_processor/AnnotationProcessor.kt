@@ -248,23 +248,7 @@ class GenerateBoundServiceWrapperAnnotationProcessor : AbstractProcessor() {
                     .addAnnotation(
                         AnnotationSpec.builder(ForeignDeps.androidx.lifecycle.OnLifecycleEvent)
                             .addMember(
-                                "%T.Event.ON_CREATE",
-                                ForeignDeps.androidx.lifecycle.Lifecycle
-                            )
-                            .build()
-                    )
-                    .build()
-            )
-            .addFunction(
-                FunSpec.builder("handleLifecycleStop").addCode(
-                    buildCodeBlock {
-                        addStatement("applicationContext.unbindService(_connection)")
-                        addStatement("_bound = false")
-                    })
-                    .addAnnotation(
-                        AnnotationSpec.builder(ForeignDeps.androidx.lifecycle.OnLifecycleEvent)
-                            .addMember(
-                                "%T.Event.ON_DESTROY",
+                                "%T.Event.ON_START",
                                 ForeignDeps.androidx.lifecycle.Lifecycle
                             )
                             .build()
