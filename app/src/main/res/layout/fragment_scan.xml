@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginVertical="20dp"
-            android:text="Power on your ESP32 device and tap the button below to start scanning. Then tap a device to begin the provisioning process."
+            android:text="Tap the button below to start scanning. Then tap a device to connect."
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
