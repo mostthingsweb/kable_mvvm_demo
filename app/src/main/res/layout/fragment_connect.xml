@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingHorizontal="5dp"
-        tools:context=".SecondFragment">
+        tools:context=".ConnectFragment">
 
         <TextView
             android:id="@+id/instructions_label"

@@ -12,14 +12,14 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.laplante.kmd.BleViewModel
 import io.laplante.kmd.ProgressItemAdapter
-import io.laplante.kmd_app.databinding.FragmentSecondBinding
+import io.laplante.kmd_app.databinding.FragmentConnectBinding
 import io.laplante.kmd_app.databinding.RecyclerviewProgressItemBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class SecondFragment : Fragment() {
+class ConnectFragment : Fragment() {
 
-    private var _binding: FragmentSecondBinding? = null
+    private var _binding: FragmentConnectBinding? = null
 
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
@@ -30,7 +30,7 @@ class SecondFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSecondBinding.inflate(inflater, container, false)
+        _binding = FragmentConnectBinding.inflate(inflater, container, false)
         return binding.root
     }
 
