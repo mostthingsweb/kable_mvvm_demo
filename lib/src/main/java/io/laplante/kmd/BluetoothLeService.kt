@@ -121,7 +121,7 @@ class BluetoothLeService : LifecycleService() {
         _scanScope.cancelChildren()
     }
 
-    private val _activeDevice = MutableStateFlow<ProvisionableDevice?>(null)
+    private val _activeDevice = MutableStateFlow<Device?>(null)
     val activeDevice = _activeDevice.asStateFlow()
 
     private val _connectState = MutableStateFlow<ConnectState>(ConnectState.Idle)
@@ -152,7 +152,7 @@ class BluetoothLeService : LifecycleService() {
         _connectScope.launch {
             val per = _connectScope.peripheral(advertisement)
 
-            val bridge = ProvisionableDevice(per)
+            val bridge = Device(per)
             _activeDevice.value = bridge
 
             bridge.connect()

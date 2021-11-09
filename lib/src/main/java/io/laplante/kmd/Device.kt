@@ -2,7 +2,7 @@ package io.laplante.kmd
 
 import com.juul.kable.Peripheral
 
-class ProvisionableDevice(
+class Device(
     private val peripheral: Peripheral,
 ) : Peripheral by peripheral {
     override suspend fun connect() {
