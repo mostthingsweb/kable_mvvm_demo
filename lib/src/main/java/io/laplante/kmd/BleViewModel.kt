@@ -1,8 +1,7 @@
 package io.laplante.kmd
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -11,8 +10,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BleViewModel @Inject constructor(
-    private val bluetoothLeServiceWrapper: BluetoothLeServiceWrapper, application: Application
-) : AndroidViewModel(application), LifecycleObserver {
+    private val bluetoothLeServiceWrapper: BluetoothLeServiceWrapper
+) : ViewModel(), LifecycleObserver {
     val advertisements = bluetoothLeServiceWrapper.advertisements
 
     val scanStatus = bluetoothLeServiceWrapper.scanStatus
