@@ -48,7 +48,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.31")
 
     implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("androidx.appcompat:appcompat:1.4.0")
     api("androidx.lifecycle:lifecycle-service:2.4.0")
     implementation("com.google.android.material:material:1.4.0")
     testImplementation("junit:junit:4.13.2")
@@ -61,8 +61,8 @@ dependencies {
 
     implementation("com.juul.kable:core:0.10.2")
 
-    implementation("com.google.dagger:hilt-android:2.37")
-    kapt("com.google.dagger:hilt-compiler:2.37")
+    implementation("com.google.dagger:hilt-android:2.40")
+    kapt("com.google.dagger:hilt-compiler:2.40")
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")

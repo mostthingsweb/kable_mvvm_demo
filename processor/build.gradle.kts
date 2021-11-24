@@ -23,7 +23,7 @@ tasks.withType<KotlinCompile> {
 
 dependencies {
     implementation(project(":annotations"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.21")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.31")
 
     implementation("com.squareup:kotlinpoet:1.9.0")
     implementation("com.squareup:kotlinpoet-metadata:1.9.0")
@@ -33,7 +33,7 @@ dependencies {
     implementation("com.google.auto.service:auto-service:1.0")
     kapt("com.google.auto.service:auto-service:1.0")
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.5.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.5.2")
 
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.21")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.31")
 }
