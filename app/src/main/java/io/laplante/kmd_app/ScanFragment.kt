@@ -11,6 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mikepenz.fastadapter.FastAdapter
+import com.mikepenz.fastadapter.adapters.ItemAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import io.laplante.kmd_app.databinding.FragmentScanBinding
 import kotlinx.coroutines.flow.collect
@@ -39,13 +41,21 @@ class ScanFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = AdvertisedDeviceAdapter(vm)
-        binding.recyclerView2.adapter = adapter
+        val itemAdapter = ItemAdapter<AdvertisedDeviceItem>()
+        val fastAdapter = FastAdapter.with(itemAdapter)
+
+        binding.recyclerView2.adapter = fastAdapter
         binding.recyclerView2.layoutManager = LinearLayoutManager(binding.root.context)
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                launch { vm.advertisements.collect { adapter.submitList(it) } }
+                launch {
+                    vm.advertisements.collect {
+                        itemAdapter.setNewList(it.map { item ->
+                            AdvertisedDeviceItem(item, vm)
+                        })
+                    }
+                }
                 launch {
                     vm.onConnectEventFlow.collect {
                         this@ScanFragment.findNavController()

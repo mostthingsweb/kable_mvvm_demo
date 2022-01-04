@@ -92,6 +92,9 @@ dependencies {
     // Lifecycles only (without ViewModel or LiveData)
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
 
+    implementation("com.mikepenz:fastadapter:5.6.0")
+    implementation("com.mikepenz:fastadapter-extensions-binding:5.6.0")
+
     compileOnly(project(path = ":annotations"))
     kapt(project(":processor"))
 }

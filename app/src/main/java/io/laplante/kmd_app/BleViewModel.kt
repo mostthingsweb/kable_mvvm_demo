@@ -8,10 +8,14 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+interface IHasConnectMethod {
+    fun connect(advertisement: AdvertisementWrapper)
+}
+
 @HiltViewModel
 class BleViewModel @Inject constructor(
     private val bluetoothLeServiceWrapper: BluetoothLeServiceWrapper
-) : ViewModel(), LifecycleObserver {
+) : ViewModel(), LifecycleObserver, IHasConnectMethod {
     val advertisements = bluetoothLeServiceWrapper.advertisements
 
     val scanStatus = bluetoothLeServiceWrapper.scanStatus
@@ -56,10 +60,10 @@ class BleViewModel @Inject constructor(
         bluetoothLeServiceWrapper.disconnect()
     }
 
-    fun connect(advertisementWrapper: AdvertisementWrapper) {
+    override fun connect(advertisement: AdvertisementWrapper) {
         viewModelScope.launch {
             _onConnectEventFlow.emit(Unit)
         }
-        bluetoothLeServiceWrapper.connect(advertisementWrapper)
+        bluetoothLeServiceWrapper.connect(advertisement)
     }
 }

@@ -12,7 +12,7 @@
 
         <variable
             name="viewModel"
-            type="io.laplante.kmd_app.BleViewModel" />
+            type="io.laplante.kmd_app.IHasConnectMethod" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,9 +1,12 @@
+package io.laplante.kmd_app
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
+import io.laplante.kmd_app.databinding.RecyclerviewScanItemBinding
 
 class AdvertisedDeviceItem constructor(
-    private val item: ProvisionableDeviceAdvertisement,
+    private val item: AdvertisementWrapper,
     val viewModel: IHasConnectMethod
 ) : AbstractBindingItem<RecyclerviewScanItemBinding>() {
     override var identifier: Long
