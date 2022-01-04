@@ -12,7 +12,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import io.laplante.kmd.BleViewModel
 import io.laplante.kmd_app.databinding.FragmentScanBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

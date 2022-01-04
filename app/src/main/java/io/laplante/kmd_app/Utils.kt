@@ -16,7 +16,7 @@
 // limitations under the License.
 
 
-package io.laplante.kmd
+package io.laplante.kmd_app
 
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope

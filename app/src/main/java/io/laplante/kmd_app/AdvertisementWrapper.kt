@@ -1,4 +1,4 @@
-package io.laplante.kmd
+package io.laplante.kmd_app
 
 import com.juul.kable.Advertisement
 

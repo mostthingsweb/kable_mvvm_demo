@@ -10,8 +10,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import io.laplante.kmd.BleViewModel
-import io.laplante.kmd.ProgressItemAdapter
 import io.laplante.kmd_app.databinding.FragmentConnectBinding
 import io.laplante.kmd_app.databinding.RecyclerviewProgressItemBinding
 import kotlinx.coroutines.flow.collect

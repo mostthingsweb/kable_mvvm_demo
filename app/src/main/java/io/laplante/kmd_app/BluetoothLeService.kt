@@ -1,4 +1,4 @@
-package io.laplante.kmd
+package io.laplante.kmd_app
 
 import android.bluetooth.BluetoothAdapter
 import android.content.Intent
@@ -6,7 +6,9 @@ import android.os.Binder
 import android.os.IBinder
 import android.util.Log
 import androidx.lifecycle.LifecycleService
+import androidx.lifecycle.lifecycleScope
 import com.juul.kable.Advertisement
+import com.juul.kable.DiscoveredService
 import com.juul.kable.Scanner
 import com.juul.kable.peripheral
 import io.laplante.kmd_annotations.GenerateBoundServiceWrapper
@@ -63,13 +65,13 @@ class BluetoothLeService : LifecycleService() {
 
     private val _scanner = Scanner()
 
-    private val _foundDevices = hashMapOf<String, io.laplante.kmd.AdvertisementWrapper>()
+    private val _foundDevices = hashMapOf<String, AdvertisementWrapper>()
 
     private val _scanStatus = MutableStateFlow<ScanStatus>(ScanStatus.Idle)
     val scanStatus = _scanStatus.asStateFlow()
 
     private val _advertisements =
-        MutableStateFlow<List<io.laplante.kmd.AdvertisementWrapper>>(emptyList())
+        MutableStateFlow<List<AdvertisementWrapper>>(emptyList())
     val advertisements = _advertisements.asStateFlow()
 
     private val _isBluetoothEnabled: Boolean
@@ -127,10 +129,9 @@ class BluetoothLeService : LifecycleService() {
     private val _connectState = MutableStateFlow<ConnectState>(ConnectState.Idle)
     val connectState = _connectState.asStateFlow()
 
-    // You can do something like the following to "forward" a flow from the active device, if any
-    //  val connectedDeviceState: Flow<DeviceState?> = _activeDevice.flatMapLatest {
-    //      it?.deviceState ?: flowOf(null)
-    //  }.stateIn(scope = lifecycleScope, initialValue = null, started = SharingStarted.WhileSubscribed(5000))
+    val connectedDeviceServices: StateFlow<List<DiscoveredService>> = _activeDevice.flatMapLatest {
+          it?.discoveredServices ?: flowOf(listOf())
+      }.stateIn(scope = lifecycleScope, initialValue = listOf(), started = SharingStarted.WhileSubscribed(5000))
 
     fun disconnect() {
         //connectScope.cancelChildren()

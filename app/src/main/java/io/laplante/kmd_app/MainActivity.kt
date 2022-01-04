@@ -19,8 +19,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import io.laplante.kmd.*
 import io.laplante.kmd_app.databinding.ActivityMainBinding
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @AndroidEntryPoint

@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="io.laplante.kmd.BleViewModel" />
+            type="io.laplante.kmd_app.BleViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

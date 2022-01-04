@@ -1,4 +1,4 @@
-package io.laplante.kmd
+package io.laplante.kmd_app
 
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
@@ -15,6 +15,8 @@ class BleViewModel @Inject constructor(
     val advertisements = bluetoothLeServiceWrapper.advertisements
 
     val scanStatus = bluetoothLeServiceWrapper.scanStatus
+
+    val discoveredServices = bluetoothLeServiceWrapper.connectedDeviceServices
 
     private val _onConnectEventFlow = MutableSharedFlow<Unit>()
     // When a Unit is delivered on this flow, it indicates that connect() was called

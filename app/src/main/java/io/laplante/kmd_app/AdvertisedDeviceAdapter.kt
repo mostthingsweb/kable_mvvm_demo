@@ -5,8 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import io.laplante.kmd.BleViewModel
-import io.laplante.kmd.AdvertisementWrapper
 import io.laplante.kmd_app.databinding.RecyclerviewScanItemBinding
 import java.lang.Long.parseLong
 import javax.inject.Inject

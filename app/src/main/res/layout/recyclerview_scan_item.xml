@@ -4,15 +4,15 @@
 
     <data>
 
-        <import type="io.laplante.kmd.AdvertisementWrapper" />
+        <import type="io.laplante.kmd_app.AdvertisementWrapper" />
 
         <variable
             name="obj"
-            type="AdvertisementWrapper" />
+            type="io.laplante.kmd_app.AdvertisementWrapper" />
 
         <variable
             name="viewModel"
-            type="io.laplante.kmd.BleViewModel" />
+            type="io.laplante.kmd_app.BleViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -3,11 +3,11 @@
 
     <data>
 
-        <import type="io.laplante.kmd.ProgressItem" />
+        <import type="io.laplante.kmd_app.ProgressItem" />
 
         <variable
             name="obj"
-            type="ProgressItem" />
+            type="io.laplante.kmd_app.ProgressItem" />
     </data>
 
     <LinearLayout
