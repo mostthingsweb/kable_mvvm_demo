@@ -5,7 +5,7 @@ plugins {
     kotlin("android")
     id("androidx.navigation.safeargs.kotlin")
     id("dagger.hilt.android.plugin")
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.6.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.6.10"
     kotlin("kapt")
 }
 
@@ -60,8 +60,8 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.0")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.10")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.10")
 
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.0")
@@ -83,7 +83,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
     implementation("com.google.protobuf:protobuf-javalite:3.14.0")
 
-    implementation("com.juul.kable:core:0.10.2")
+    implementation("com.juul.kable:core:0.10.4")
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
