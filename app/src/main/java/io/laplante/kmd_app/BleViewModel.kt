@@ -1,6 +1,5 @@
 package io.laplante.kmd_app
 
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +14,7 @@ interface IHasConnectMethod {
 @HiltViewModel
 class BleViewModel @Inject constructor(
     private val bluetoothLeServiceWrapper: BluetoothLeServiceWrapper
-) : ViewModel(), LifecycleObserver, IHasConnectMethod {
+) : ViewModel(), IHasConnectMethod {
     val advertisements = bluetoothLeServiceWrapper.advertisements
 
     val scanStatus = bluetoothLeServiceWrapper.scanStatus
